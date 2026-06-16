@@ -1,28 +1,18 @@
-from flask import Flask
-from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
+from app import create_app
 
-# Load environment variables from .env
-load_dotenv()
-
-app = Flask(__name__)
-
-# Get MongoDB URI from .env
-MONGO_URI = os.getenv("MONGO_URI")
-
-try:
-    client = MongoClient(MONGO_URI, tls=True)
-    client.admin.command("ping")
-    print("✅ MongoDB Connected Successfully")
-except Exception as e:
-    print("❌ MongoDB Connection Error:", e)
-
-@app.route("/")
-def home():
-    return {
-        "message": "Hello from MediBot Backend"
-    }
+app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    print("\n===================================")
+    print("🚀 MediBot Backend Started")
+    print("===================================")
+    print("🏠 Home    : http://127.0.0.1:5000/")
+    print("❤️ Health  : http://127.0.0.1:5000/api/v1/health")
+    print("❌ Error   : http://127.0.0.1:5000/api/v1/health/error")
+    print("👤 Patient : http://127.0.0.1:5000/api/v1/patients/")
+    print("📊 Count   : http://127.0.0.1:5000/api/v1/patients/count")
+    print("➕ Create  : http://127.0.0.1:5000/api/v1/patients/test-create")
+    print("🗑 Delete  : http://127.0.0.1:5000/api/v1/patients/delete/1")
+    print("===================================\n")
+
+    app.run(debug=False)
