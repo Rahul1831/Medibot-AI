@@ -1,8 +1,12 @@
 from dotenv import load_dotenv
 load_dotenv()
+
 from flask import Flask
+
 from app.routes.health_routes import health_bp
 from app.routes.patient_routes import patient_bp
+from app.routes.doctor_routes import doctor_bp
+
 from app.config.config import Config
 from app.database.mongodb import connect_db
 
@@ -28,6 +32,11 @@ def create_app():
     app.register_blueprint(
         patient_bp,
         url_prefix="/api/v1/patients"
+    )
+
+    app.register_blueprint(
+        doctor_bp,
+        url_prefix="/api/v1/doctors"
     )
 
     return app
